@@ -13,20 +13,17 @@ def run(bytecode):
             byte = next(it)
             stack.append(byte)
         else:
+            op = {
+                code.CMD_ADD: lambda a, b: a + b,
+                code.CMD_SUB: lambda a, b: a - b,
+                code.CMD_MUL: lambda a, b: a * b,
+                code.CMD_DIV: lambda a, b: a / b,
+                code.CMD_POW: lambda a, b: a ** b,
+            }[byte]
             b = stack.pop()
             a = stack.pop()
-            if byte == code.CMD_ADD:
-                stack.append(a + b)
-            elif byte == code.CMD_SUB:
-                stack.append(a - b)
-            elif byte == code.CMD_MUL:
-                stack.append(a * b)
-            elif byte == code.CMD_DIV:
-                stack.append(a / b)
-            elif byte == code.CMD_POW:
-                stack.append(a ** b)
-            else:
-                raise 'unknown cmd {:02X}'.format(byte)
+            res = int(op(a, b)) & 0xFF
+            stack.append(res)
     return stack.pop()
 
 

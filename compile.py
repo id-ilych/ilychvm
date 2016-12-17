@@ -16,13 +16,15 @@ def interpret(ast):
         if isinstance(expr, str):
             return int(expr)
         else: 
-            return {
+            res = {
                 '+': lambda: impl(expr[1]) + impl(expr[2]),
                 '-': lambda: impl(expr[1]) - impl(expr[2]),
                 '*': lambda: impl(expr[1]) * impl(expr[2]),
                 '/': lambda: impl(expr[1]) / impl(expr[2]),
                 '^': lambda: impl(expr[1]) ** impl(expr[2]),
             }[expr[0]]()
+            res = int(res) & 0xFF
+            return res
     return impl(ast[0])
 
 
