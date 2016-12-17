@@ -1,0 +1,6 @@
+# python caches
+__pycache__
+*.pyc
+
+# compiled bytecode (ilychvm)
+*.byt
